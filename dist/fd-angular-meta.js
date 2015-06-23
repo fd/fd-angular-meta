@@ -7,6 +7,7 @@ Object.defineProperty(exports, '__esModule', {
 exports.Meta = Meta;
 
 function Meta(object, name, desc) {
+  var klass = object.constructor;
   var func = desc.value;
 
   function pushMeta(Meta) {
@@ -14,19 +15,19 @@ function Meta(object, name, desc) {
     Meta.push(func.apply(this, args));
   }
   pushMeta.$inject = ['Meta'].concat(func && func.$inject || []);
-  if (!object.$$afterConstructor) {
-    object.$$afterConstructor = [];
+  if (!klass.$$afterTransition) {
+    klass.$$afterTransition = [];
   }
-  object.$$afterConstructor.push(pushMeta);
+  klass.$$afterTransition.push(pushMeta);
 
   function popMeta(Meta) {
     Meta.pop();
   }
   popMeta.$inject = ['Meta'];
-  if (!object.$$onExit) {
-    object.$$onExit = [];
+  if (!klass.$$onExit) {
+    klass.$$onExit = [];
   }
-  object.$$onExit.push(popMeta);
+  klass.$$onExit.push(popMeta);
 }
 
 },{}],2:[function(require,module,exports){

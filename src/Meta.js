@@ -1,5 +1,6 @@
 
 export function Meta(object, name, desc) {
+  let klass = object.constructor;
   let func = desc.value;
 
 
@@ -8,16 +9,14 @@ export function Meta(object, name, desc) {
     Meta.push(func.apply(this, args));
   }
   pushMeta.$inject = ['Meta'].concat((func && func.$inject) || []);
-  if (!object.$$afterConstructor) { object.$$afterConstructor = []; }
-  object.$$afterConstructor.push(pushMeta);
+  if (!klass.$$afterTransition) { klass.$$afterTransition = []; }
+  klass.$$afterTransition.push(pushMeta);
 
 
   function popMeta(Meta) {
     Meta.pop();
   }
   popMeta.$inject = ['Meta'];
-  if (!object.$$onExit) { object.$$onExit = []; }
-  object.$$onExit.push(popMeta);
-
-  
+  if (!klass.$$onExit) { klass.$$onExit = []; }
+  klass.$$onExit.push(popMeta);
 }
