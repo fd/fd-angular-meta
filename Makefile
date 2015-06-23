@@ -12,7 +12,8 @@ lib: $(SRC_FILES)
 
 dist: lib $(LIB_FILES)
 	@mkdir -p dist
-	browserify lib/index.js -o dist/fd-angular-meta.raw.js --standalone=FdAngularMeta --extension=js --debug
+	browserify lib/index.js -o dist/fd-angular-meta.raw.js --standalone=FdAngularMeta --extension=js --debug \
+		--exclude fd-angular-core
 	cat dist/fd-angular-meta.raw.js | exorcist dist/fd-angular-meta.js.map > dist/fd-angular-meta.js
 	rm dist/fd-angular-meta.raw.js
 	@touch dist
