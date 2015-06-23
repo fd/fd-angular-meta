@@ -11,7 +11,7 @@ class MetaService {
     this.stack = [];
     this.top = null;
 
-    this.push();
+    this.push({});
   }
 
   push(data) {
