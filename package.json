@@ -27,7 +27,7 @@
     "format": "es6",
     "main": "src/index.js",
     "dependencies": {
-      "fd-angular-core": "npm:fd-angular-core@^0.0.8"
+      "fd-angular-core": "npm:fd-angular-core@0.x.x"
     }
   }
 }
