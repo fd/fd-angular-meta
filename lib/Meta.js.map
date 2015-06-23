@@ -1,0 +1,1 @@
+{"version":3,"sources":["../src/Meta.js"],"names":[],"mappings":";;;;;QACgB,IAAI,GAAJ,IAAI;;AAAb,SAAS,IAAI,CAAC,MAAM,EAAE,IAAI,EAAE,KAAK,EAAE;AACxC,SAAO,CAAC,GAAG,CAAC,kBAAkB,EAAE,MAAM,EAAE,IAAI,EAAE,KAAK,CAAC,CAAC;CACtD","file":"Meta.js","sourcesContent":["\nexport function Meta(object, desc, value) {\n  console.log(\"Meta(%o, %o, %o)\", object, desc, value);\n}\n"]}

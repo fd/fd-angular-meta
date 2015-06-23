@@ -1,0 +1,11 @@
+language: node_js
+node_js:
+- '0.12'
+deploy:
+  provider: npm
+  email: simon.menke@gmail.com
+  api_key:
+    secure: ancFUQ6abqo8bHJw7l76mhty0T+jR7oiQBhK/q09e4tsPEurM7mAMS6S7HobpFfBpe0zoXdgaKvf8NgZNlCaGhnjdauOsBHlX3fykQuCOUMUZV9Xy2R8Qh3jayKC/6M6atrqF9HSHXK9RXLrF3ee+2oApPI4WELGjDNMqcstAJq3AQ+k5zVRdnYgZSBwj4m26gGfh4M1dnYktPDBaFkyP1VpsFM99Fno7SwwRbvixSl2GIXBx6R91OBIWvHDaj5SdfLfSIGEBsIEqlQ4GzYooEwOhJvCrxp2TXk+eWwK8vw3GbOGxXDnLfI9eVf0zNyBzRXlHTAA3UgMOKm9qJ7hXCO4Y7NIul/Jxf1y8N3oIbvQ7Re4q0FGHSqp7I0JdyF8XO6CPq6R1uoPn0wBDZfRnd7O4z8IC+sICCang7YzZD5wN0m52XQSbPLEo7QD3pNQJaReIAHNxltZ/GiNYnVjwejGPGyQxevtpEZNcEibh1a5AACMQjzKrvK6Y2dTotETo6GSluppIQj3GeVKGrL85S0coDG1eW5rinu8f3ZMDdHcluxPNor+v6BhokcWUQURKg1hNQ7CPmbxN4YTr1X4R3/29zZqnkXhoNNz8gOoaQ3tHt3BRz7MiF5fWuPqVPT+RKTFAlL1uwaR12XUXZwI4NsLcMW+RAYS0XgI+b9oMpk=
+  on:
+    tags: true
+    repo: fd/fd-angular-meta

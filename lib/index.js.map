@@ -1,0 +1,1 @@
+{"version":3,"sources":["../src/index.js"],"names":[],"mappings":";;;;;;QAAO,eAAe;;oBACH,QAAQ;;;;;iBAAnB,IAAI","file":"index.js","sourcesContent":["import './MetaService';\nexport {Meta} from './Meta';\n"]}
