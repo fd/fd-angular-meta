@@ -1,6 +1,6 @@
 {
   "name": "fd-angular-meta",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Personal package for handling page meta data",
   "repository": "https://github.com/fd/fd-angular-meta.git",
   "main": "lib/index.js",
