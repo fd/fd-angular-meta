@@ -28,3 +28,9 @@ class AppController {
 
 bootstrap(AppController); // => Promise
 ```
+
+
+```html
+<head fd-meta>
+</head>
+```

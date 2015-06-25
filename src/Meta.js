@@ -14,5 +14,5 @@ export function Meta(object, name, desc) {
     Meta.pop();
   }
   popMeta.$inject = ['Meta'];
-  State.onAttach(object, 'popMeta', { value: popMeta });
+  State.onDetach(object, 'popMeta', { value: popMeta });
 }
