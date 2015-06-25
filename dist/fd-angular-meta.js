@@ -6,8 +6,9 @@ Object.defineProperty(exports, '__esModule', {
 });
 exports.Meta = Meta;
 
+var _fdAngularCore = require('fd-angular-core');
+
 function Meta(object, name, desc) {
-  var klass = object.constructor;
   var func = desc.value;
 
   function pushMeta(Meta) {
@@ -15,22 +16,30 @@ function Meta(object, name, desc) {
     Meta.push(func.apply(this, args));
   }
   pushMeta.$inject = ['Meta'].concat(func && func.$inject || []);
-  if (!klass.$$afterTransition) {
-    klass.$$afterTransition = [];
-  }
-  klass.$$afterTransition.push(pushMeta);
+  _fdAngularCore.State.onAttach(object, 'pushMeta', { value: pushMeta });
 
   function popMeta(Meta) {
     Meta.pop();
   }
   popMeta.$inject = ['Meta'];
-  if (!klass.$$onExit) {
-    klass.$$onExit = [];
-  }
-  klass.$$onExit.push(popMeta);
+  _fdAngularCore.State.onAttach(object, 'popMeta', { value: popMeta });
 }
 
-},{}],2:[function(require,module,exports){
+},{"fd-angular-core":undefined}],2:[function(require,module,exports){
+'use strict';
+
+var _fdAngularCore = require('fd-angular-core');
+
+_fdAngularCore.app.directive('fdMeta', function () {
+  return {
+    restrict: 'M',
+    template: TMPL
+  };
+});
+
+var TMPL = '\n<title ng-bind-template="{{ meta.title }}"></title>\n<meta name="description" content="{{ meta.description }}" />\n\n<meta name="prerender-status-code" content="{{ meta.status }}">\n<link rel="canonical" ng-href="{{ meta.url }}" />\n\n<meta property="og:site_name" content="{{ meta.siteName }}" />\n<meta property="og:url" content="{{ meta.url }}" />\n<meta property="og:title" content="{{ meta.title }}" />\n<meta property="og:type" content="{{ meta.type }}" />\n<meta property="og:description" content="{{ meta.description }}" />\n<meta property="og:image" content="{{ meta.image }}" />\n\n<meta name="twitter:card" content="summary_large_image">\n<meta name="twitter:site" content="{{ meta.twitterHandle }}">\n<meta name="twitter:title" content="{{ meta.title }}">\n<meta name="twitter:description" content="{{ meta.description }}">\n<meta name="twitter:image" content="{{ meta.image }}">\n';
+
+},{"fd-angular-core":undefined}],3:[function(require,module,exports){
 'use strict';
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
@@ -128,7 +137,7 @@ var MetaService = (function () {
   return MetaService;
 })();
 
-},{"fd-angular-core":undefined}],3:[function(require,module,exports){
+},{"fd-angular-core":undefined}],4:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -136,6 +145,8 @@ Object.defineProperty(exports, '__esModule', {
 });
 
 require('./MetaService');
+
+require('./MetaDirective');
 
 var _Meta = require('./Meta');
 
@@ -146,6 +157,6 @@ Object.defineProperty(exports, 'Meta', {
   }
 });
 
-},{"./Meta":1,"./MetaService":2}]},{},[3])(3)
+},{"./Meta":1,"./MetaDirective":2,"./MetaService":3}]},{},[4])(4)
 });
 //# sourceMappingURL=fd-angular-meta.js.map
