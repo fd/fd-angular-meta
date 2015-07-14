@@ -1,5 +1,7 @@
 # `fd-angular-meta`
 
+[![Build Status](https://travis-ci.org/fd/fd-angular-meta.svg?branch=master)](https://travis-ci.org/fd/fd-angular-meta)
+
 ## Getting started
 
 ```js
