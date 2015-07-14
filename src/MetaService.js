@@ -87,12 +87,12 @@ function toAbsUrl(url) {
     }
 
     if (url.indexOf('//') === 0) {
-      return `${window.location.protocol}:${url}`;
+      return `${window.location.protocol}${url}`;
     }
 
     if (url.indexOf('/') === 0) {
-      return `${window.location.protocol}://${window.location.host}${url}`;
+      return `${window.location.protocol}//${window.location.host}${url}`;
     }
 
-    return `${window.location.protocol}://${window.location.host}/${url}`;
+    return `${window.location.protocol}//${window.location.host}/${url}`;
 }
