@@ -64,9 +64,7 @@ var MetaService = (function () {
     this.push({});
   }
 
-  var _MetaService = MetaService;
-
-  _createClass(_MetaService, [{
+  _createClass(MetaService, [{
     key: 'push',
     value: function push(data) {
       var top = this.top;
@@ -114,13 +112,9 @@ var MetaService = (function () {
         data.status = 200;
       }
 
-      if (data.image && data.image.indexOf('http') !== 0) {
-        data.image = loc.protocol() + '://' + loc.host() + data.image;
-      }
+      data.image = toAbsUrl(data.image);
 
-      if (data.url && data.url.indexOf('http') !== 0) {
-        data.url = loc.protocol() + '://' + loc.host() + data.url;
-      }
+      data.url = toAbsUrl(data.url);
 
       this.stack.push(data);
       this.top = data;
@@ -135,10 +129,31 @@ var MetaService = (function () {
     }
   }]);
 
+  var _MetaService = MetaService;
   MetaService = (0, _fdAngularCore.Inject)('$rootScope', '$location')(MetaService) || MetaService;
   MetaService = (0, _fdAngularCore.Service)('Meta')(MetaService) || MetaService;
   return MetaService;
 })();
+
+function toAbsUrl(url) {
+  if (!url) {
+    return null;
+  }
+
+  if (url.indexOf('http') === 0) {
+    return url;
+  }
+
+  if (url.indexOf('//') === 0) {
+    return window.location.protocol + ':' + url;
+  }
+
+  if (url.indexOf('/') === 0) {
+    return window.location.protocol + '://' + window.location.host + url;
+  }
+
+  return window.location.protocol + '://' + window.location.host + '/' + url;
+}
 
 },{"fd-angular-core":undefined}],4:[function(require,module,exports){
 'use strict';

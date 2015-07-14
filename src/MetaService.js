@@ -60,13 +60,9 @@ class MetaService {
       data.status = 200;
     }
 
-    if (data.image && data.image.indexOf('http') !== 0) {
-      data.image = `${loc.protocol()}://${loc.host()}${data.image}`;
-    }
+    data.image = toAbsUrl(data.image);
 
-    if (data.url && data.url.indexOf('http') !== 0) {
-      data.url = `${loc.protocol()}://${loc.host()}${data.url}`;
-    }
+    data.url = toAbsUrl(data.url);
 
     this.stack.push(data);
     this.top = data;
@@ -79,4 +75,24 @@ class MetaService {
     this.$rootScope.meta = this.top;
   }
 
+}
+
+function toAbsUrl(url) {
+    if ( !url ) {
+        return null;
+    }
+
+    if (url.indexOf('http') === 0) {
+        return url;
+    }
+
+    if (url.indexOf('//') === 0) {
+      return `${window.location.protocol}:${url}`;
+    }
+
+    if (url.indexOf('/') === 0) {
+      return `${window.location.protocol}://${window.location.host}${url}`;
+    }
+
+    return `${window.location.protocol}://${window.location.host}/${url}`;
 }
