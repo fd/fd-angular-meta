@@ -1,98 +1,88 @@
 import {Service, Inject} from 'fd-angular-core';
 
+let defaults = {
+	type:         'website',
+	status:       200,
+	distribution: 'global',
+	revisitAfter: 7,
+}
+
 @Service('Meta')
 @Inject('$rootScope', '$location')
 class MetaService {
 
-  constructor($rootScope, $location) {
-    this.$rootScope = $rootScope;
-    this.$location  = $location;
+	constructor($rootScope, $location) {
+		this.$rootScope = $rootScope;
+		this.$location  = $location;
 
-    this.stack = [];
-    this.top = null;
+		this.stack = [];
+		this.top = null;
 
-    this.push({});
-  }
+		this.push({});
+	}
 
-  push(data) {
-    let top = this.top;
-    let loc = this.$location;
+	push(data) {
+		let top = this.top;
+		let loc = this.$location;
+		let entry = {};
 
-    if (!data.url) {
-      data.url = loc.absUrl();
-    }
+		// normalize
+		if (!data.url) { data.url = loc.absUrl(); }
+		if (data.image) { data.image = toAbsUrl(data.image); }
+		if (data.url) { data.url = toAbsUrl(data.url); }
 
-    if (top) {
-      if (!data.siteName) {
-        data.siteName = top.siteName;
-      }
+		data.author = (data.author || data.copyright || data.publisher);
+		data.copyright = (data.copyright || data.author || data.publisher);
+		data.publisher = (data.publisher || data.author || data.copyright);
 
-      if (!data.title) {
-        data.title = top.title;
-      }
+		// inherit from top
+		if (top) {
+			Object.assign(entry, top);
+		}
 
-      if (!data.image) {
-        data.image = top.image;
-      }
+		// assign data
+		for (let key of Object.keys(data)) {
+			if (data[key] !== undefined) {
+				entry[key] = data[key];
+			}
+		}
 
-      if (!data.description) {
-        data.description = top.description;
-      }
+		// apply defaults
+		for (let key of Object.keys(defaults)) {
+			if (entry[key] === undefined) {
+				entry[key] = defaults[key];
+			}
+		}
 
-      if (!data.type) {
-        data.type = top.type;
-      }
+		this.stack.push(entry);
+		this.top = entry;
+		this.$rootScope.meta = this.top;
+	}
 
-      if (!data.twitterHandle) {
-        data.twitterHandle = top.twitterHandle;
-      }
-
-      if (!data.status) {
-        data.status = top.status;
-      }
-    }
-
-    if (!data.type) {
-      data.type = 'website';
-    }
-
-    if (!data.status) {
-      data.status = 200;
-    }
-
-    data.image = toAbsUrl(data.image);
-
-    data.url = toAbsUrl(data.url);
-
-    this.stack.push(data);
-    this.top = data;
-    this.$rootScope.meta = this.top;
-  }
-
-  pop(data) {
-    this.stack.pop();
-    this.top = this.stack[this.stack.length-1];
-    this.$rootScope.meta = this.top;
-  }
+	pop(data) {
+		this.stack.pop();
+		this.top = this.stack[this.stack.length-1];
+		this.$rootScope.meta = this.top;
+	}
 
 }
 
 function toAbsUrl(url) {
-    if ( !url ) {
-        return null;
-    }
+	if (!url) {
+		return null;
+	}
 
-    if (url.indexOf('http') === 0) {
-        return url;
-    }
+	if (url.indexOf('http') === 0) {
+		return url;
+	}
 
-    if (url.indexOf('//') === 0) {
-      return `${window.location.protocol}${url}`;
-    }
+	if (url.indexOf('//') === 0) {
+		return `${window.location.protocol}${url}`;
+	}
 
-    if (url.indexOf('/') === 0) {
-      return `${window.location.protocol}//${window.location.host}${url}`;
-    }
+	if (url.indexOf('/') === 0) {
+		return `${window.location.protocol}//${window.location.host}${url}`;
+	}
 
-    return `${window.location.protocol}//${window.location.host}/${url}`;
+	return `${window.location.protocol}//${window.location.host}/${url}`;
 }
