@@ -22,7 +22,7 @@
     "exorcist": "^0.4.0"
   },
   "dependencies": {
-    "fd-angular-core": "0.x.x"
+    "fd-angular-core": "1.x.x"
   },
   "jspm": {
     "jspmNodeConversion": false,
