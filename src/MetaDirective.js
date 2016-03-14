@@ -36,6 +36,9 @@ const TMPL = `
 <meta name="prerender-status-code" content="{{ meta.status }}">
 <link rel="canonical" ng-href="{{ meta.url }}" />
 
+<meta property="fb:app_id"
+	ng-if="meta.fbAppId"
+	content="{{ meta.fbAppId }}" />
 <meta property="og:site_name"
 	ng-if="meta.siteName"
 	content="{{ meta.siteName }}" />
