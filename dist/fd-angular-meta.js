@@ -63,11 +63,12 @@ var MetaService = (function () {
 	function MetaService($rootScope, $location) {
 		_classCallCheck(this, _MetaService);
 
-		this.$rootScope = $rootScope;
-		this.$location = $location;
-
 		this.stack = [];
 		this.top = null;
+		this.mappings = {};
+
+		this.$rootScope = $rootScope;
+		this.$location = $location;
 
 		this.push({});
 	}

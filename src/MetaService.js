@@ -11,12 +11,14 @@ let defaults = {
 @Inject('$rootScope', '$location')
 class MetaService {
 
+	stack = [];
+	top = null;
+
+	mappings = {};
+
 	constructor($rootScope, $location) {
 		this.$rootScope = $rootScope;
 		this.$location  = $location;
-
-		this.stack = [];
-		this.top = null;
 
 		this.push({});
 	}
